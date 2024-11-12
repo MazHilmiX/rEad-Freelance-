@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hifdzhuka.read - Portal Hafalan Quran</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a4d2c;
+            --secondary-color: #1a8d4c;
+            --accent-color: #ffd700;
+            --text-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --transition-speed: 0.3s;
+            --container-width: 1200px;
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(10, 77, 44, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-logo {
+            height: 60px;
+            object-fit: contain;
+            background-color: white;
+            padding: 8px;
+            border-radius: 12px;
+            transition: transform var(--transition-speed);
+        }
+
+        .top-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: calc(var(--header-height) + 2rem) 2rem 2rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            background: var(--glass-bg);
+            border-radius: 40px;
+            margin: 0 auto 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            animation: floatLogo 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 2s linear infinite;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: fadeInDown 1s ease-out;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.8;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            padding: 0 1rem;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 4rem;
+            padding: 0 1rem;
+        }
+
+        .button {
+        margin-bottom:50px;
+            padding: 2.5rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text-color);
+            background: var(--glass-bg);
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-speed);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            animation: fadeIn 1s ease-out 0.6s both;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.6s;
+        }
+
+        .button:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-color);
+        }
+
+        .button:hover::before {
+            left: 100%;
+        }
+
+        .button-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height:100px;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+
+        .supported-text {
+            font-weight: 500px;
+            margin-left: 10px;
+            opacity: 0;
+            transform: translateX(-100%);
+            animation: flashText 1s ease-in-out forwards;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .footer-logos {
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+            gap: 40px;
+            margin-top: 1rem;
+        }
+
+        .footer-logo {
+            max-height: 100px;
+            width: auto;
+            opacity: 0;
+            transform: translateX(-100%);
+            animation: flashImage 1s ease-in-out forwards;
+            filter: brightness(1.2) contrast(1.1);
+            transition: all var(--transition-speed);
+        }
+
+        .footer-logo:hover {
+            transform: scale(1.1);
+            filter: brightness(1.4) contrast(1.2);
+        }
+
+        .footer-logo.large {
+            max-height: 10px;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes flashText {
+            0% { opacity: 0; transform: translateX(-100%); }
+            50% { opacity: 1; transform: translateX(10%); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes flashImage {
+            0% { opacity: 0; transform: translateX(-100%); }
+            50% { opacity: 1; transform: translateX(10%); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 1024px) {
+            :root {
+                --container-width: 90%;
+            }
+            
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .buttons-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+            
+            .header {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-top: calc(var(--header-height) + 1rem);
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .logo {
+                width: 160px;
+                height: 160px;
+                font-size: 4rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+                margin-bottom: 3rem;
+            }
+
+            .buttons-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .button {
+                padding: 2rem;
+            }
+            
+            .header {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                height: 70px;
+                padding: 0 15px;
+            }
+
+            .top-logo {
+                height: 45px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                padding: 0 1rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .footer {
+                padding: 1.5rem;
+            }
+
+            .supported-text {
+                margin-left: 15px;
+                font-size: 15px;
+            }
+
+            .footer-logos {
+                margin-left: 70x;
+                gap: 5px;
+            }
+
+            .footer-logo {
+                max-height: 70px;
+                margin-top:-30px;
+                margin-left:70px;
+            }
+
+            .footer-logo.large {
+                max-height: 70px;
+                margin-left:0px
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="Lot.png" alt="Logo"class="top-logo">
+    </header>
+    
+    <div class="container">
+        <div class="logo">
+    <a href="https://quran.com/id">
+        <img src="log.png" style="max-height:240px;" alt="Logo" />
+    </a>
+</div>
+        <h1>Hifdzhuka v.00,1</h1>
+        <p class="tagline">Portal Pencapaian dan Monitoring Hafalan Al-Quran MKABA Margodadi</p>
+        
+        <div class="buttons-container">
+            <a href="#pencapaian-tahunan" class="button">
+                <span class="button-icon"><img src="Tog.jpg"style="max-height:120px"/></span>
+                Format Penilaian Setoran
+            </a>
+            <a href="#hafalan-dhobit" class="button">
+                <span class="button-icon"><img src="Bat.jpg"style="max-height:115px"/></span>
+                Menegement Data Muhafidz
+            </a>
+            <a href="#portofolio-santri" class="button">
+                <span class="button-icon">📊</span>
+                Portofolio Hafalan Masal
+            </a>
+        </div>
+
+        <div class="footer">
+            <p class="supported-text">Supported by :</p>
+            <div class="footer-logos">
+                <img src="Photoroom-20241112_123210.png" alt="Logo 1" class="footer-logo">
+                <img src="lit.png" alt="Logo 2" class="footer-logo large">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
